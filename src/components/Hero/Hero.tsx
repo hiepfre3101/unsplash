@@ -3,10 +3,9 @@ import style from './Hero.module.scss';
 import GlassIcon from '../../assets/icons/GlassIcon';
 import Search from '../Search/Search';
 import { Link } from 'react-router-dom';
-import { Random } from 'unsplash-js/dist/methods/photos/types';
 
 type Props = {
-   photo: Random;
+   photo: any;
    title: string;
    descs: string[];
    contentClassname?: string;
@@ -14,9 +13,10 @@ type Props = {
 };
 
 const Hero = ({ photo, title, descs, contentClassname, optionBtns }: Props) => {
+   if (!photo) return <>Loading...</>;
    return (
       <div className={style['hero-wrap']}>
-         <img src={photo?.urls.regular} alt={photo?.description!} className={style['hero-banner']} />
+         <img src={photo[0]?.urls.regular} alt={photo[0]?.description!} className={style['hero-banner']} />
          <div className={style['overlay']}></div>
          <div className={`${style['hero-content']} ${contentClassname}`}>
             <h1 className={style['title']}>{title}</h1>
@@ -25,7 +25,7 @@ const Hero = ({ photo, title, descs, contentClassname, optionBtns }: Props) => {
                   {desc}
                </span>
             ))}
-            <div id="form-custom" style={{ width: '100%' }}>
+            <div id='form-custom' style={{ width: '100%' }}>
                <div className={style['form-search']}>
                   <GlassIcon width={'24'} height={'24'} className={style['form-icon']} />
                   <Search placeholder='Search high-resolution images' />
@@ -43,12 +43,12 @@ const Hero = ({ photo, title, descs, contentClassname, optionBtns }: Props) => {
          <div className={style['user-wrap']}>
             <span className={style['text-wrap']}>
                <span style={{ cursor: 'zoom-in' }} className={style['text-white']}>
-                  Photo
+                  photo[0]
                </span>
                <span className={style['text-gray']}>by</span>{' '}
                <span style={{ cursor: 'pointer' }} className={style['text-white']}>
                   {' '}
-                  {photo?.user.name}
+                  {photo[0]?.user.name}
                </span>
             </span>
          </div>

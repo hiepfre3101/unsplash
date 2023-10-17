@@ -9,7 +9,6 @@ import Modal from '../../components/Modal/Modal';
 import { useLocation } from 'react-router-dom';
 import useListPhoto from '../../hooks/useListPhoto';
 import { PaginationParams } from 'unsplash-js/dist/types/request';
-import { Random } from 'unsplash-js/dist/methods/photos/types';
 
 const HomePage = () => {
    const { openModal } = useContext(PhotoContext) as IPhotoState;
@@ -25,7 +24,7 @@ const HomePage = () => {
       (async () => {
          try {
             const { response } = await instanceServer.photos.getRandom({ count: 1 });
-            if (response as Random[]) {
+            if (response ) {
                setPhoto(response as any);
             }
          } catch (error) {
