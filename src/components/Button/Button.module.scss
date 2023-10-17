@@ -1,0 +1,21 @@
+@import '../../style/variables';
+
+.wrapper {
+   font-size: $textM;
+   color: $gray400;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   gap: 10px;
+   padding: 10px;
+   border: 1px solid $gray100;
+   border-radius: 5px;
+   position: relative;
+
+   &:hover {
+      background-color: $gray50;
+      transition: 0.3s;
+   }
+}
+
+

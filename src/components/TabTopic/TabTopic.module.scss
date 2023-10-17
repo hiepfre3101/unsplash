@@ -1,0 +1,41 @@
+@import '../../style/variables';
+
+.wrapper {
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   gap: 25px;
+   cursor: pointer;
+}
+.tab {
+   height: 100%;
+   padding-top: 15px;
+   padding-bottom: 15px;
+   &:hover .tab-title {
+      color: #111;
+      fill: #111;
+      transition: 0.3s;
+   }
+}
+
+.tab-underline {
+   border-bottom: 2px solid #111;
+}
+.tab-active {
+   color: #111 !important;
+   fill: #111 !important;
+}
+.tab-title {
+   font-size: 14px;
+   color: $gray400;
+   fill: $gray400;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap:5px;
+}
+
+.shrink {
+   border-right: 1px solid #d1d1d1;
+   height: 35px;
+}

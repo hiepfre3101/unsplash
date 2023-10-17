@@ -1,0 +1,113 @@
+@import '../../style/variables';
+.hero-wrap {
+   width: 100%;
+   height: 594px;
+   position: relative;
+   & .hero-banner {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: -1;
+   }
+}
+.overlay {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   top: 0;
+   left: 0;
+   z-index: 1;
+}
+.hero-content {
+   position: absolute;
+   z-index: 2;
+   width: 45%;
+   top: 45%;
+   left: 50%;
+   transform: translateX(-50%) translateY(-40%);
+   color: white;
+   display: flex;
+   flex-direction: column;
+   gap: 18px;
+   align-items: start;
+   & .title {
+      font-size: 46px;
+      font-weight: 700;
+   }
+   & .hero-desc {
+      font-size: 18px;
+      font-weight: 400;
+   }
+   & .form-search {
+      width: 100%;
+      background-color: #eee;
+      border-radius: 5px;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 5px;
+      padding: 15px 14px;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 5;
+      border: 3px solid transparent;
+      &:hover {
+         border: 3px solid rgba(0, 0, 0, 0.7);
+      }
+      &:focus-within {
+         background-color: white;
+         border: 1px solid rgba(0, 0, 0, 0.7);
+      }
+      & .form-icon {
+         fill: #767676;
+      }
+   }
+   & .hero-recomend {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 5px;
+      margin-top: 20px;
+      & a {
+         color: #e0e0e0;
+         &:hover {
+            color: white;
+         }
+      }
+   }
+}
+.user-wrap {
+   position: absolute;
+   bottom: 20px;
+   left: 20px;
+   color: white;
+   z-index: 1;
+
+   & .text-wrap {
+      display: flex;
+      justify-content: start;
+      gap: 3px;
+      font-size: 12px;
+   }
+}
+.text-gray {
+   color: $gray400;
+}
+.text-white {
+   color: $white200;
+   cursor: pointer;
+   &:hover {
+      color: white;
+   }
+}
+
+.lisence {
+   position: absolute;
+   z-index: 1;
+   bottom: 20px;
+   left: 50%;
+   transform: translateX(-50%);
+   font-size: 12px;
+}

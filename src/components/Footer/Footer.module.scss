@@ -1,0 +1,23 @@
+@import '../../style/variables';
+
+.wrapper {
+    position: absolute;
+    bottom: -100px;
+   width: 100%;
+   padding: 50px 0 100px 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+   & .main {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      & span {
+         font-size: 14px;
+         color: $gray400;
+      }
+   }
+}

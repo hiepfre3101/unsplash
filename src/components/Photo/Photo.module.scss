@@ -1,0 +1,92 @@
+@import '../../style/variables';
+
+.photo {
+   width: 100%;
+   height: 100%;
+   overflow: hidden;
+   cursor: zoom-in;
+   position: relative;
+   display: flex;
+   justify-content: start;
+   align-items: start;
+   &:hover .overlay {
+      display: block;
+   }
+   & .photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+   }
+
+   & .overlay {
+      transition: 0.3s;
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.3);
+
+      & .overlay-head {
+         width: 100%;
+         position: absolute;
+         top: 0;
+         left: 0;
+         display: flex;
+         justify-content: end;
+         align-items: center;
+         gap: 10px;
+         padding: 10px;
+      }
+
+      & .overlay-foot {
+         padding: 10px;
+         width: 100%;
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+
+         & .profile-wrapper {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 10px;
+            & .profile-name {
+               color: $white300;
+               font-size: 12px;
+               cursor: pointer;
+               &:hover {
+                  color: white;
+               }
+            }
+            & .profile-img {
+               width: 20%;
+               aspect-ratio: 1/1;
+               border-radius: 50%;
+            }
+         }
+      }
+      & .head-btn {
+         background-color: $gray50;
+         padding: 10px;
+         border-radius: 5px;
+         width: 40px;
+         height: 35px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+      }
+      & .overlay-icon {
+         fill: #555;
+         width: 17px;
+         transition: 0.3s;
+         &:hover {
+            fill: #111;
+         }
+      }
+   }
+}

@@ -1,0 +1,37 @@
+@import '../../../style/variables';
+.profile-wrapper {
+   width: 100%;
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   gap: 10px;
+   position: relative;
+   & .profile-info {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+   }
+   & .profile-name {
+      color: black;
+      font-size: 15px;
+      cursor: pointer;
+   }
+   & .profile-username {
+      color: $gray400;
+      font-size: 12px;
+   }
+   & .profile-img {
+      width: 10%;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+   }
+   & .children {
+      visibility: hidden;
+      transition: 0.5s;
+   }
+   &:hover .children,
+   .children:hover,
+   .profile-name:hover + .children {
+      visibility: visible;
+   }
+}

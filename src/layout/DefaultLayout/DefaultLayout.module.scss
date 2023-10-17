@@ -1,0 +1,19 @@
+.wrapper{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+.block-bottom {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+    padding-top: 10px;
+    box-shadow: 0px 5px 5px -5px gray;
+    padding-left: 20px;
+    padding-right: 20px;
+ }

@@ -1,0 +1,59 @@
+@import '../../style/variables';
+.collection {
+   max-height: 300px;
+   display: flex;
+   height: 100%;
+   justify-content: start;
+   align-items: start;
+   gap: 5px;
+   overflow: hidden;
+   position: relative;
+   & .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(222, 222, 222, 0.3);
+      z-index: 3;
+      transition: 0.3s;
+      display: none;
+   }
+   &:hover .overlay {
+      display: block;
+   }
+   & .left-block {
+      width: 70%;
+      height: 100%;
+      overflow: hidden;
+      & img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         border-bottom-left-radius: 5px;
+         border-top-left-radius: 5px;
+      }
+   }
+   & .right-block {
+      height: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 5px;
+      overflow: hidden;
+      & img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+      }
+   }
+}
+.collection-desc {
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   gap: 20px;
+   color: $gray400;
+   font-size: 14px;
+}

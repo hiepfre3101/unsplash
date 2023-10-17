@@ -1,0 +1,73 @@
+@import '../../style/variables';
+.wrapper {
+   position: absolute;
+   padding: 24px 40px 40px;
+   background-color: white;
+   top: 160%;
+   right: -10px;
+   z-index: 20;
+   border-radius: 5px;
+   border: 1px solid $gray100;
+   box-shadow: 0px 0px 10px 0px $gray400;
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+   gap: 15px;
+   &::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      right: 10px;
+      background-color: white;
+      padding: 6px;
+      border-bottom: 1px solid $gray100;
+      border-right: 1px solid $gray100;
+      transform: rotate(225deg);
+   }
+}
+.body {
+   padding-bottom: 50px;
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 100px;
+   & .body-column {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 15px;
+      & .list {
+         display: flex;
+         flex-direction: column;
+         gap: 15px;
+         align-items: start;
+      }
+   }
+}
+.nav-link {
+   display: block;
+   font-size: 15px;
+   text-align: left;
+   color: $gray400;
+   white-space: nowrap;
+   transition: 0.3s;
+   &:hover {
+      color: black;
+   }
+}
+.footer {
+   position: absolute;
+   width: 100%;
+   bottom: 0;
+   left: 0;
+   padding: 20px 40px;
+   display: flex;
+   justify-content: start;
+   border-top: 1px solid $gray100;
+   & .footer-left {
+      width: 90%;
+      display: flex;
+      justify-content: start;
+      gap: 10px;
+   }
+}

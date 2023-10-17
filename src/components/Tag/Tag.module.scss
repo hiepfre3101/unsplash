@@ -1,0 +1,23 @@
+@import '../../style/variables';
+
+.tag-wrap {
+   margin-top: 10px;
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 10px;
+   margin-bottom: 30px;
+   & .tag {
+      background-color: $gray50;
+      color: $gray400;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 3px 10px;
+      transition: 0.3s;
+      &:hover {
+         background-color: $gray100;
+         color: black;
+      }
+   }
+}

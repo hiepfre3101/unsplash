@@ -1,0 +1,29 @@
+@import '../../style/variables';
+.wrapper {
+   width: 100%;
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 5;
+}
+.block-bottom {
+   width: 100%;
+   background-color: white;
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   gap: 20px;
+   padding-top: 15px;
+   border-bottom: 1px solid $gray100;
+   padding-left: 20px;
+   padding-right: 20px;
+}
+.filter{
+   position: absolute;
+   right: 20px;
+   width: 40%;
+   display: flex;
+   justify-content: end;
+   align-items: center;
+   gap:15px;
+}

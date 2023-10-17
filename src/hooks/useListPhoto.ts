@@ -1,0 +1,90 @@
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { IParams, IPhotoState, PhotoContext } from '../context/PhotoContext';
+import { IPhoto } from '../interface/photo';
+import { ApiResponse } from 'unsplash-js/dist/helpers/response';
+
+type Params<P> = {
+   pathname: string; //need remove first prefix, get the path only
+   params: P & { query: string };
+   api: (
+      params: P & { query: string } & { page: number }
+   ) => Promise<ApiResponse<{ results: IPhoto[]; total: number }>>;
+   needFilter?: boolean;
+};
+const useListPhoto = <P>({ api, pathname, params, needFilter = true }: Params<P>) => {
+   const {
+      listPhoto,
+      handleSetListPhoto,
+      addListPhoto,
+      historyPaths,
+      removePath,
+      params: filter,
+      openModal
+   } = useContext(PhotoContext) as IPhotoState;
+   const [totalPage, setTotalPage] = useState<number>(0);
+   const [page, setPage] = useState<number>(1);
+   const [visible, setVisible] = useState<boolean>(false);
+   const [search, setSearch] = useState<string | undefined>(undefined);
+   const [lastFilter, setLastFilter] = useState<IParams>({ orderBy: 'relevant', orientation: undefined });
+   // console.log(4, lastFilter.orderBy, filter.orderBy);
+   // console.log(5, lastFilter.orientation, filter.orientation);
+   useEffect(() => {
+      if (!params.query || search === params.query) return;
+      setSearch(params.query);
+      setPage(1);
+   }, [params]);
+   useEffect(() => {
+      if (
+         (!filter.orderBy && !filter.orientation) ||
+         (filter.orderBy === lastFilter.orderBy && filter.orientation === lastFilter.orientation)
+      )
+         return;
+      setLastFilter(filter);
+      setPage(1);
+   }, [filter, params]);
+   useEffect(() => {
+      // console.log(1,pathname, historyPaths[historyPaths.length - 1]);
+      // console.log(3,pathname=== historyPaths[historyPaths.length - 1]);
+      // console.log(2,listPhoto.length === 0 && page === 1);
+      if (openModal) return;
+      (async () => {
+         try {
+            const res = await api(needFilter ? { ...params, ...filter, page } : { ...params, page });
+            if (res.response?.results.length === 0) {
+               setVisible(true);
+               return;
+            }
+            setTotalPage(res.response?.totalPage);
+            if (
+               (listPhoto.length === 0 && page === 1) ||
+               historyPaths[historyPaths.length - 1] === pathname ||
+               lastFilter.orderBy !== filter.orderBy ||
+               lastFilter.orientation !== filter.orientation ||
+               params.query !== search
+            ) {
+               // console.log(2, 'set');
+               handleSetListPhoto(res.response?.results as IPhoto[]);
+               removePath(pathname);
+               return;
+            }
+            // console.log(3, 'add');
+            addListPhoto(res.response?.results as IPhoto[]);
+         } catch (error) {
+            console.log(error);
+         }
+      })();
+   }, [page, pathname, filter]);
+   const handleSetPage = useCallback(
+      () =>
+         setPage((prev) => {
+            if (prev === totalPage) {
+               return prev;
+            }
+            return prev + 1;
+         }),
+      []
+   );
+   return { handleSetPage, visible };
+};
+
+export default useListPhoto;
