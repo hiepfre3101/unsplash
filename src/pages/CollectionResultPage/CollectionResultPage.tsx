@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import style from './CollectionResultPage.module.scss';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { instanceServer } from '../../config/unsplash_instance';
-import { ICollection } from '../../interface/collection';
 import useInfinite from '../../hooks/useInfinite';
 import Tag from '../../components/Tag/Tag';
 import Collection from '../../components/Collection/Collection';
@@ -21,11 +20,11 @@ const CollectionResultPage = () => {
          try {
             const res = await instanceServer.search.getCollections({ query: query!, page });
             if ((collections.length === 0 && page === 1) || query !== lastQuery) {
-               setCollections(res.response?.results );
+               setCollections(res.response?.results);
                setLastQuery(query);
                return;
             }
-            setCollections((prev:any) => [...prev, ...res.response?.results as any]);
+            setCollections((prev: any) => [...prev, ...(res.response?.results as any)]);
          } catch (error) {
             console.log(error);
          }
@@ -41,7 +40,7 @@ const CollectionResultPage = () => {
       <div className={style['wrapper']}>
          <h1 className={style['title']}>{query}</h1>
          <div className={style['body']}>
-            {collections.map((coll:any) => (
+            {collections.map((coll: any) => (
                <div className={style['collect-wrap']}>
                   <Collection coll={coll} />
                   <Tag tags={coll.tags} onClick={(value) => handleNavigate(value)} />

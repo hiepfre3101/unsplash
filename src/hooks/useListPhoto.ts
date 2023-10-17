@@ -3,6 +3,7 @@ import { IParams, IPhotoState, PhotoContext } from '../context/PhotoContext';
 import { IPhoto } from '../interface/photo';
 
 type Params<P> = {
+   ahyhy?: P;
    pathname: string; //need remove first prefix, get the path only
    params: any & { query: string };
    api: (params: any) => any;

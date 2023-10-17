@@ -1,4 +1,3 @@
-import React from 'react';
 import { IconProps } from './LogoIcon';
 
 const Company = ({ className, width = '24', height = '24' }: IconProps) => {
