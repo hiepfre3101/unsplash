@@ -1,8 +1,7 @@
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import style from './HomePage.module.scss';
 
 import { instanceServer } from '../../config/unsplash_instance';
-import { IPhoto } from '../../interface/photo';
 import Hero from '../../components/Hero/Hero';
 import Body from '../../components/Body/Body';
 import { IPhotoState, PhotoContext } from '../../context/PhotoContext';
@@ -10,22 +9,25 @@ import Modal from '../../components/Modal/Modal';
 import { useLocation } from 'react-router-dom';
 import useListPhoto from '../../hooks/useListPhoto';
 import { PaginationParams } from 'unsplash-js/dist/types/request';
+import { Random } from 'unsplash-js/dist/methods/photos/types';
 
 const HomePage = () => {
    const { openModal } = useContext(PhotoContext) as IPhotoState;
-   const [photo, setPhoto] = useState<IPhoto>();
+   const [photo, setPhoto] = useState<any>();
    const location = useLocation();
    const { handleSetPage } = useListPhoto<PaginationParams>({
       api: instanceServer.photos.list,
-      params: {perPage:20},
+      params: { perPage: 20 },
       pathname: location.pathname.replace('/', '')
    });
    useEffect(() => {
       if (photo) return;
       (async () => {
          try {
-            const res = await instanceServer.photos.getRandom({ count: 1 });
-            setPhoto(res.response[0] as IPhoto);
+            const { response } = await instanceServer.photos.getRandom({ count: 1 });
+            if (response as Random[]) {
+               setPhoto(response as any);
+            }
          } catch (error) {
             console.log(error);
          }

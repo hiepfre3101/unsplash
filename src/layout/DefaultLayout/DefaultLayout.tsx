@@ -1,11 +1,10 @@
 import Header from '../../components/Header/Header';
 import { Outlet } from 'react-router-dom';
-import { ITopic } from '../../interface/topic';
 import style from './DefaultLayout.module.scss';
 import { useEffect, useState } from 'react';
 import { instanceServer } from '../../config/unsplash_instance';
 import TabTopic from '../../components/TabTopic/TabTopic';
-const fakeTopics: ITopic[] = [
+const fakeTopics: any= [
    {
       id: 'sdadiadia',
       description: 'Editorial',
@@ -40,12 +39,12 @@ const fakeTopics: ITopic[] = [
    }
 ];
 const DefaultLayout = () => {
-   const [topics, setTopics] = useState<ITopic[]>([]);
+   const [topics, setTopics] = useState<any>([]);
    useEffect(() => {
       (async () => {
          try {
             const res = await instanceServer.topics.list({ page: 1, perPage: 10, orderBy: 'featured' });
-            setTopics(res.response?.results as ITopic[]);
+            setTopics(res.response?.results );
          } catch (error) {
             console.log(error);
          }

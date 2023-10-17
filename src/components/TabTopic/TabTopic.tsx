@@ -24,7 +24,7 @@ const TabTopic = ({ list, hasShrink, checkLocation }: Props) => {
 
    return (
       <div className={`${style['wrapper']} `}>
-         {list.map((item) => (
+         {list.map((item:any) => (
             <Link
                onClick={() => handlePaths(item.slug!)}
                key={item.id}

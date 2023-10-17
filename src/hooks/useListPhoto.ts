@@ -1,14 +1,11 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { IParams, IPhotoState, PhotoContext } from '../context/PhotoContext';
 import { IPhoto } from '../interface/photo';
-import { ApiResponse } from 'unsplash-js/dist/helpers/response';
 
 type Params<P> = {
    pathname: string; //need remove first prefix, get the path only
-   params: P & { query: string };
-   api: (
-      params: P & { query: string } & { page: number }
-   ) => Promise<ApiResponse<{ results: IPhoto[]; total: number }>>;
+   params: any & { query: string };
+   api: (params: any) => any;
    needFilter?: boolean;
 };
 const useListPhoto = <P>({ api, pathname, params, needFilter = true }: Params<P>) => {
@@ -21,7 +18,6 @@ const useListPhoto = <P>({ api, pathname, params, needFilter = true }: Params<P>
       params: filter,
       openModal
    } = useContext(PhotoContext) as IPhotoState;
-   const [totalPage, setTotalPage] = useState<number>(0);
    const [page, setPage] = useState<number>(1);
    const [visible, setVisible] = useState<boolean>(false);
    const [search, setSearch] = useState<string | undefined>(undefined);
@@ -54,7 +50,6 @@ const useListPhoto = <P>({ api, pathname, params, needFilter = true }: Params<P>
                setVisible(true);
                return;
             }
-            setTotalPage(res.response?.totalPage);
             if (
                (listPhoto.length === 0 && page === 1) ||
                historyPaths[historyPaths.length - 1] === pathname ||
@@ -77,9 +72,6 @@ const useListPhoto = <P>({ api, pathname, params, needFilter = true }: Params<P>
    const handleSetPage = useCallback(
       () =>
          setPage((prev) => {
-            if (prev === totalPage) {
-               return prev;
-            }
             return prev + 1;
          }),
       []

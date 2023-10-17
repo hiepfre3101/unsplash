@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { instanceServer } from '../../config/unsplash_instance';
-import { ITopic } from '../../interface/topic';
 import Hero from '../../components/Hero/Hero';
 import style from './TopicPage.module.scss';
 import { IPhotoState, PhotoContext } from '../../context/PhotoContext';
@@ -13,7 +12,7 @@ import { PaginationParams } from 'unsplash-js/dist/types/request';
 
 const TopicPage = () => {
    const { topic } = useParams();
-   const [topicData, setTopicData] = useState<ITopic>();
+   const [topicData, setTopicData] = useState<any>();
    const { openModal } = useContext(PhotoContext) as IPhotoState;
    const { handleSetPage } = useListPhoto<TopicIdOrSlug & PaginationParams>({
       api: instanceServer.topics.getPhotos,
@@ -30,7 +29,7 @@ const TopicPage = () => {
       (async () => {
          try {
             const res = await instanceServer.topics.get({ topicIdOrSlug: topic! });
-            setTopicData(res.response as ITopic);
+            setTopicData(res.response);
          } catch (error) {
             console.log(error);
          }

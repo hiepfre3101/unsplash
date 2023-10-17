@@ -4,7 +4,6 @@ import StonkIcon from '../../assets/icons/StonkIcon';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import Button from '../Button/Button';
 import TrendBlock from './TrendBlock';
-import { ITopic } from '../../interface/topic';
 import { instanceServer } from '../../config/unsplash_instance';
 import { ICollection } from '../../interface/collection';
 import XIcon from '../../assets/icons/XIcon';
@@ -20,8 +19,8 @@ const Search = ({ placeholder }: Props) => {
    const { pushPath } = useContext(PhotoContext) as IPhotoState;
    const [isOpen, setIsOpen] = useState<boolean>(false);
    const [value, setValue] = useState<string>('');
-   const [topics, setTopics] = useState<ITopic[]>([]);
-   const [collections, setCollections] = useState<ICollection[]>([]);
+   const [topics, setTopics] = useState<any>([]);
+   const [collections, setCollections] = useState<any>([]);
    const wrapRef = useRef(null);
    const navigate = useNavigate();
    useClickOutside(wrapRef, () => {
@@ -35,7 +34,7 @@ const Search = ({ placeholder }: Props) => {
       (async () => {
          try {
             const res = await instanceServer.topics.list({ page: 1, perPage: 5, orderBy: 'latest' });
-            setTopics(res.response?.results as ITopic[]);
+            setTopics(res.response?.results);
          } catch (error) {
             console.log(error);
          }
@@ -98,7 +97,7 @@ const Search = ({ placeholder }: Props) => {
                </TrendBlock>
                <TrendBlock title='Trending Topics'>
                   <div className={style['tab-wrap']}>
-                     {topics.map((topic) => (
+                     {topics.map((topic:any) => (
                         <Button
                            onClick={() => {
                               navigate('/' + topic.slug);
@@ -115,7 +114,7 @@ const Search = ({ placeholder }: Props) => {
                </TrendBlock>
                <TrendBlock title='Trendding Collections'>
                   <div className={style['tab-wrap']}>
-                     {collections.map((collection) => (
+                     {collections.map((collection:any) => (
                         <Button
                            onClick={() => {
                               pushPath('/collections/' + collection.id);

@@ -1,13 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import style from './Photo.module.scss';
-import { IPhoto } from '../../interface/photo';
 import PlusIcon from '../../assets/icons/PlusIcon';
 import HeartIcon from '../../assets/icons/HeartIcon';
 import ArrowDown from '../../assets/icons/ArrowDown';
 import { IPhotoState, PhotoContext } from '../../context/PhotoContext';
 
 type Props = {
-   photo: IPhoto;
+   photo: any;
 };
 
 const Photo = ({ photo }: Props) => {
@@ -22,9 +21,9 @@ const Photo = ({ photo }: Props) => {
          <div className={style['photo']} key={photo.id} onClick={() => handleClickPhoto(photo.id)}>
             <img
                loading='lazy'
-               title={photo.description}
+               title={photo.description!}
                src={photo.urls.regular}
-               alt={photo.description}
+               alt={photo.description!}
                className={style['photo-img']}
             />
             <div className={style['overlay']}>

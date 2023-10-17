@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { IPhoto } from '../../interface/photo';
 import style from './Modal.module.scss';
 import XIcon from '../../assets/icons/XIcon';
 import ArrowLeft from '../../assets/icons/ArrowLeft';
@@ -18,6 +17,7 @@ import { IPhotoState, PhotoContext } from '../../context/PhotoContext';
 import Loading from '../Loading/Loading';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import ImageZoom from '../ImageZoom/ImageZoom';
+import { Random } from 'unsplash-js/dist/methods/photos/types';
 
 const Modal = () => {
    const {
@@ -30,7 +30,7 @@ const Modal = () => {
       triggerReloadModal
    } = useContext(PhotoContext) as IPhotoState;
    const [loading, setLoading] = useState<boolean>(false);
-   const [relatePhotos, setRelatePhotos] = useState<IPhoto[]>([]);
+   const [relatePhotos, setRelatePhotos] = useState<any>([]);
    const modalRef = useRef(null);
    useClickOutside(modalRef, () => {
       triggerModal(false);
@@ -41,7 +41,7 @@ const Modal = () => {
          try {
             setLoading(true);
             const res = await instanceServer.photos.get({ photoId: idPhoto });
-            handleSetPhoto(res.response as IPhoto);
+            handleSetPhoto(res.response);
             setLoading(false);
          } catch (error) {
             setLoading(false);
@@ -52,13 +52,13 @@ const Modal = () => {
    useEffect(() => {
       if (!openModal) return;
       (async () => {
-         const collectionIds = singlePhoto?.related_collections.results.map((result) => result.id);
+         const collectionIds = singlePhoto?.related_collections.results.map((result: any) => result.id);
          try {
             const res = await instanceServer.photos.getRandom({
                collectionIds: collectionIds,
                count: 10
             });
-            setRelatePhotos(res.response);
+            setRelatePhotos(res.response as Random[]);
             // console.log('run');
          } catch (error) {
             console.log(error);
@@ -79,7 +79,7 @@ const Modal = () => {
    };
    const nextImage = () => {
       if (!singlePhoto) return;
-      const currIndex = listPhoto.indexOf(listPhoto.find((item) => item.id === singlePhoto.id)!);
+      const currIndex = listPhoto.indexOf(listPhoto.find((item: any) => item.id === singlePhoto.id)!);
       if (currIndex !== listPhoto.length - 1) {
          const nextPhoto = listPhoto[currIndex + 1];
          triggerReloadModal(nextPhoto.id);
@@ -89,7 +89,7 @@ const Modal = () => {
    };
    const prevImage = () => {
       if (!singlePhoto) return;
-      const currIndex = listPhoto.indexOf(listPhoto.find((item) => item.id === singlePhoto.id)!);
+      const currIndex = listPhoto.indexOf(listPhoto.find((item: any) => item.id === singlePhoto.id)!);
       if (currIndex !== 0) {
          const nextPhoto = listPhoto[currIndex - 1];
          triggerReloadModal(nextPhoto.id);
@@ -210,7 +210,7 @@ const Modal = () => {
 
                         <div className={style['tag-wrapper']}>
                            {singlePhoto &&
-                              singlePhoto.tags.map((tag, index) => (
+                              singlePhoto.tags.map((tag: any, index: number) => (
                                  <button className={style['tag']} key={index}>
                                     {tag.title}
                                  </button>

@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { IUser } from '../../interface/user';
 import Header from '../../components/Header/Header';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { instanceServer } from '../../config/unsplash_instance';
@@ -18,7 +17,7 @@ import Modal from '../../components/Modal/Modal';
 
 const UserProfile = () => {
    const { openModal } = useContext(PhotoContext) as IPhotoState;
-   const [user, setUser] = useState<IUser>();
+   const [user, setUser] = useState<any>();
    const { username } = useParams();
    const navigate = useNavigate();
    const headRef = useRef<HTMLDivElement>(null);
@@ -51,7 +50,7 @@ const UserProfile = () => {
       (async () => {
          try {
             const res = await instanceServer.users.get({ username: username! });
-            setUser(res.response as IUser);
+            setUser(res.response);
          } catch (error) {
             console.log(error);
          }
@@ -62,13 +61,15 @@ const UserProfile = () => {
    };
    useEffect(() => {
       const handleScroll = () => {
-         console.log(1, document.documentElement.scrollTop);
-         console.log(2, headRef.current?.clientHeight);
-         if (document.documentElement.scrollTop >= headRef.current?.clientHeight! && tabRef.current) {
+         if (
+            miniProfileRef.current &&
+            document.documentElement.scrollTop >= headRef.current?.clientHeight! &&
+            tabRef.current
+         ) {
             tabRef.current.style.position = 'fixed';
             tabRef.current.style.top = '0px';
             miniProfileRef.current.style.display = 'flex';
-         } else {
+         } else if (miniProfileRef.current && tabRef.current) {
             tabRef.current.style.position = 'relative';
             miniProfileRef.current.style.display = 'none';
          }

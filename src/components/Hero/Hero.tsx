@@ -3,10 +3,10 @@ import style from './Hero.module.scss';
 import GlassIcon from '../../assets/icons/GlassIcon';
 import Search from '../Search/Search';
 import { Link } from 'react-router-dom';
-import { IPhoto } from '../../interface/photo';
+import { Random } from 'unsplash-js/dist/methods/photos/types';
 
 type Props = {
-   photo: IPhoto;
+   photo: Random;
    title: string;
    descs: string[];
    contentClassname?: string;
@@ -16,7 +16,7 @@ type Props = {
 const Hero = ({ photo, title, descs, contentClassname, optionBtns }: Props) => {
    return (
       <div className={style['hero-wrap']}>
-         <img src={photo?.urls.regular} alt={photo?.description} className={style['hero-banner']} />
+         <img src={photo?.urls.regular} alt={photo?.description!} className={style['hero-banner']} />
          <div className={style['overlay']}></div>
          <div className={`${style['hero-content']} ${contentClassname}`}>
             <h1 className={style['title']}>{title}</h1>

@@ -10,7 +10,7 @@ import Collection from '../../components/Collection/Collection';
 const CollectionResultPage = () => {
    const { query } = useParams();
    const [lastQuery, setLastQuery] = useState<string | undefined>('');
-   const [collections, setCollections] = useState<ICollection[]>([]);
+   const [collections, setCollections] = useState<any>([]);
    const [page, setPage] = useState<number>(1);
    const navigate = useNavigate();
    const handleLoadMore = useCallback(() => setPage((prev) => prev + 1), []);
@@ -21,11 +21,11 @@ const CollectionResultPage = () => {
          try {
             const res = await instanceServer.search.getCollections({ query: query!, page });
             if ((collections.length === 0 && page === 1) || query !== lastQuery) {
-               setCollections(res.response?.results as ICollection[]);
+               setCollections(res.response?.results );
                setLastQuery(query);
                return;
             }
-            setCollections((prev) => [...prev, ...res.response?.results]);
+            setCollections((prev:any) => [...prev, ...res.response?.results as any]);
          } catch (error) {
             console.log(error);
          }
@@ -41,7 +41,7 @@ const CollectionResultPage = () => {
       <div className={style['wrapper']}>
          <h1 className={style['title']}>{query}</h1>
          <div className={style['body']}>
-            {collections.map((coll) => (
+            {collections.map((coll:any) => (
                <div className={style['collect-wrap']}>
                   <Collection coll={coll} />
                   <Tag tags={coll.tags} onClick={(value) => handleNavigate(value)} />

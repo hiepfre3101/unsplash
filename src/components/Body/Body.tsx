@@ -7,9 +7,8 @@ import useInfinite from '../../hooks/useInfinite';
 import { IPhotoState, PhotoContext } from '../../context/PhotoContext';
 import Tag from '../Tag/Tag';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IPhoto } from '../../interface/photo';
 type Props = {
-   photos?: IPhoto[];
+   photos?: any;
    loadMore?: () => void;
    type?: 'infinite' | 'limit';
    title?: string | React.ReactElement;
@@ -51,13 +50,13 @@ const Body = ({ className, hasTag = false, loadMore, type = 'infinite', title, d
                </div>
             )}
             {photos
-               ? photos.map((photo) => (
+               ? photos.map((photo: any) => (
                     <div className={style['photo-wrap']}>
                        <Photo photo={photo} key={photo.id} />
                        {hasTag && photo.tags && <Tag tags={photo.tags} onClick={(value) => handleNavigate(value)} />}
                     </div>
                  ))
-               : listPhoto.map((photo) => (
+               : listPhoto.map((photo: any) => (
                     <div className={style['photo-wrap']}>
                        <Photo photo={photo} key={photo.id} />
                        {hasTag && photo.tags && <Tag tags={photo.tags} onClick={(value) => handleNavigate(value)} />}

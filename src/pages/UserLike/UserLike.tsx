@@ -1,4 +1,3 @@
-import React from 'react';
 import style from '../UserPhoto/UserPhoto.module.scss';
 import Body from '../../components/Body/Body';
 import useListPhoto from '../../hooks/useListPhoto';

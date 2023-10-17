@@ -41,7 +41,7 @@ const Select = ({ selectList, getValue, icon, type, initValue }: Props) => {
             <div className={style['dropdown']}>
                <p className={style['head']}>{type}</p>
                <div className={style['list-wrapper']}>
-                  {selectList.map((item, index) => (
+                  {selectList.map((item: any, index) => (
                      <div
                         key={index}
                         className={title === item.title ? style['option-selected'] : style['option']}

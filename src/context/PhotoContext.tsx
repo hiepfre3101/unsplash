@@ -1,18 +1,19 @@
 import React, { createContext, useState } from 'react';
-import { IPhoto } from '../interface/photo';
+import { Full } from 'unsplash-js/dist/methods/topics/types';
+import { Basic } from 'unsplash-js/dist/methods/users/types';
 
 export type IParams = {
    orientation: string | undefined;
    orderBy: string | undefined;
 };
 export type IPhotoState = {
-   listPhoto: IPhoto[];
-   photo: IPhoto | undefined;
+   listPhoto: any;
+   photo: any;
    openModal: boolean;
    triggerModal: (status: boolean) => void;
-   handleSetListPhoto: (photos: IPhoto[]) => void;
-   handleSetPhoto: (photo: IPhoto) => void;
-   addListPhoto: (photos: IPhoto[]) => void;
+   handleSetListPhoto: (photos: any) => void;
+   handleSetPhoto: (photo: any) => void;
+   addListPhoto: (photos: any) => void;
    idPhoto: string;
    triggerReloadModal: (id: string) => void;
    historyPaths: string[];
@@ -28,8 +29,8 @@ type Props = {
    children: React.ReactElement;
 };
 const PhotoProvider = ({ children }: Props) => {
-   const [listPhoto, setListPhoto] = useState<IPhoto[]>([]);
-   const [photo, setPhoto] = useState<IPhoto>();
+   const [listPhoto, setListPhoto] = useState<Basic[]>([]);
+   const [photo, setPhoto] = useState<Full | undefined>();
    const [openModal, setOpenModal] = useState<boolean>(false);
    const [idPhoto, setIdPhoto] = useState<string>('');
    const [historyPaths, setHistoryPaths] = useState<string[]>(['']);
@@ -40,15 +41,15 @@ const PhotoProvider = ({ children }: Props) => {
    const triggerReloadModal = (id: string) => {
       setIdPhoto(id);
    };
-   const handleSetListPhoto = (photos: IPhoto[]) => {
+   const handleSetListPhoto = (photos: Basic[]) => {
       setListPhoto(photos);
    };
 
-   const handleSetPhoto = (photo: IPhoto) => {
+   const handleSetPhoto = (photo: Full) => {
       setPhoto(photo);
    };
 
-   const addListPhoto = (photos: IPhoto[]) => {
+   const addListPhoto = (photos: Basic[]) => {
       setListPhoto((prev) => [...prev, ...photos]);
    };
    const pushPath = (path: string) => {

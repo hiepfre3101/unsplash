@@ -7,7 +7,7 @@ import CardUser from '../../components/CardUser/CardUser';
 import useInfinite from '../../hooks/useInfinite';
 
 const UserResultPage = () => {
-   const [users, setUsers] = useState<IUser[]>([]);
+   const [users, setUsers] = useState<any>([]);
    const [page, setPage] = useState<number>(1);
    const [lastQuery, setLastQuery] = useState<string | undefined>('');
    const { query } = useParams();
@@ -22,7 +22,7 @@ const UserResultPage = () => {
                setLastQuery(query);
                return;
             }
-            setUsers((prev) => [...prev, ...res.response?.results]);
+            setUsers((prev:any) => [...prev, ...res.response?.results as any]);
          } catch (error) {
             console.log(error);
          }
@@ -32,7 +32,7 @@ const UserResultPage = () => {
       <div className={style['wrapper']}>
          <h1 className={style['title']}>{query}</h1>
          <div className={style['body']}>
-            {users.map((user) => (
+            {users.map((user:any) => (
                <CardUser key={user.id} user={user} />
             ))}
          </div>

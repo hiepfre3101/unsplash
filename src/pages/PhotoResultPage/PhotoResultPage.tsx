@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import style from './PhotoResultPage.module.scss';
 import { useLocation, useParams } from 'react-router-dom';
 import { IPhotoState, PhotoContext } from '../../context/PhotoContext';
