@@ -20,7 +20,7 @@ const Photo = ({ photo }: Props) => {
 
    return (
       <div style={{ position: 'relative' }}>
-         <div className={style['photo']} key={photo.id} onClick={(e) => handleClickPhoto(e, photo.id)}>
+         <div className={style['photo']} key={photo.id}>
             <img
                loading='lazy'
                title={photo.description!}
@@ -28,7 +28,7 @@ const Photo = ({ photo }: Props) => {
                alt={photo.description!}
                className={style['photo-img']}
             />
-            <div className={style['overlay']}>
+            <div className={style['overlay']} onClick={(e) => handleClickPhoto(e, photo.id)}>
                <div className={style['overlay-head']}>
                   <button type='button' className={style['head-btn']}>
                      <PlusIcon className={style['overlay-icon']} />

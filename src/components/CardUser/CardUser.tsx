@@ -8,13 +8,14 @@ import { IPhotoState, PhotoContext } from '../../context/PhotoContext';
 import { VeryBasic } from 'unsplash-js/dist/methods/photos/types';
 type Props = {
    user: IUser;
+   isHover: boolean;
 };
 
-const CardUser = ({ user }: Props) => {
+const CardUser = ({ user, isHover }: Props) => {
    const { pushPath } = useContext(PhotoContext) as IPhotoState;
    const [photos, setPhotos] = useState<VeryBasic[]>([]);
    useEffect(() => {
-      if (user.photos || photos.length > 0) return;
+      if (user.photos || photos.length > 0 || !isHover) return;
       (async () => {
          try {
             const res = await instanceServer.users.get({ username: user.username });
@@ -23,7 +24,7 @@ const CardUser = ({ user }: Props) => {
             console.log(error);
          }
       })();
-   }, [user]);
+   }, [user, isHover]);
    return (
       <Link
          to={'/user/' + user.username}

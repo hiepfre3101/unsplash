@@ -32,7 +32,8 @@ const UserResultPage = () => {
          <h1 className={style['title']}>{query}</h1>
          <div className={style['body']}>
             {users.map((user: any) => (
-               <CardUser key={user.id} user={user}  />
+               //false : in the user profile dont need get info of user
+               <CardUser key={user.id} user={user} isHover={false} />
             ))}
          </div>
       </div>
