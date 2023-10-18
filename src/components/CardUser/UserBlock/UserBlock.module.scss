@@ -26,8 +26,12 @@
       border-radius: 50%;
    }
    & .children {
+      width: 100%;
+      position: absolute;
       visibility: hidden;
       transition: 0.5s;
+      left: 0;
+      bottom: 50px;
    }
    &:hover .children,
    .children:hover,

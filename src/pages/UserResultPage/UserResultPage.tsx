@@ -32,7 +32,7 @@ const UserResultPage = () => {
          <h1 className={style['title']}>{query}</h1>
          <div className={style['body']}>
             {users.map((user: any) => (
-               <CardUser key={user.id} user={user} />
+               <CardUser key={user.id} user={user}  />
             ))}
          </div>
       </div>

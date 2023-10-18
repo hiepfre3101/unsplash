@@ -7,7 +7,6 @@ import Collection from '../../components/Collection/Collection';
 import Tag from '../../components/Tag/Tag';
 import Footer from '../../components/Footer/Footer';
 
-
 const UserCollection = () => {
    const { username } = useParams();
    const location = useLocation();
@@ -18,6 +17,7 @@ const UserCollection = () => {
    const handleLoadMore = useCallback(() => setPage((prev) => prev + 1), []);
    useInfinite({ loadMore: handleLoadMore });
    useEffect(() => {
+      if (visible) return;
       (async () => {
          if (username?.trim() === '') return;
          try {
@@ -30,7 +30,7 @@ const UserCollection = () => {
                setCollections(res.response?.results);
                return;
             }
-            setCollections((prev:any) => [...prev, ...res.response?.results as any]);
+            setCollections((prev: any) => [...prev, ...(res.response?.results as any)]);
          } catch (error) {
             console.log(error);
          }
@@ -44,8 +44,8 @@ const UserCollection = () => {
    };
    return (
       <div className={style['wrapper']}>
-         {collections.map((coll:any) => (
-            <div className={style['collect-wrap']}>
+         {collections.map((coll: any) => (
+            <div className={style['collection-wrap']}>
                <Collection coll={coll} />
                <Tag tags={coll.tags} onClick={(value) => handleNavigate(value)} />
             </div>

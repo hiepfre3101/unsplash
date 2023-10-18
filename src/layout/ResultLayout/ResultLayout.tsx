@@ -37,8 +37,8 @@ const selectSort: ISelect[] = [
    }
 ];
 const ResultLayout = () => {
-   const { query } = useParams();
    const location = useLocation();
+   const { query } = useParams();
    const { changeParams, params } = useContext(PhotoContext) as IPhotoState;
 
    const fakeTopics: TopicParams[] = [
@@ -63,18 +63,16 @@ const ResultLayout = () => {
    ];
 
    const checkLocationSearch = (path: string, slug: string) => {
-      return path === slug;
+      const characters = path.split('/');
+      characters.pop();
+      const formatedPath = characters.join('/').toString();
+      const charsOfSlug = slug.split('/');
+      charsOfSlug.pop();
+      const slugFormated = charsOfSlug.join('/').toString();
+      return formatedPath === slugFormated;
    };
 
    const handleChangeSelect = (type: string, value: string) => {
-      // console.log(value);
-      // try {
-      //    const res = await instanceServer.search.getPhotos({ ...params, query: query!, [type]: value });
-      //    setParams((prev) => ({ ...prev, [type]: value }));
-      //    handleSetListPhoto(res.response?.results as IPhoto[]);
-      // } catch (error) {
-      //    console.log(error);
-      // }
       changeParams(type, value);
    };
    return (

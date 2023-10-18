@@ -14,7 +14,7 @@ const CardUser = ({ user }: Props) => {
    const { pushPath } = useContext(PhotoContext) as IPhotoState;
    const [photos, setPhotos] = useState<VeryBasic[]>([]);
    useEffect(() => {
-      if (user.photos) return;
+      if (user.photos || photos.length > 0) return;
       (async () => {
          try {
             const res = await instanceServer.users.get({ username: user.username });
@@ -31,6 +31,7 @@ const CardUser = ({ user }: Props) => {
          onClick={() => {
             pushPath(location.pathname.replace('/', ''));
             pushPath('/user/' + user.username);
+            window.scrollTo(0, 0);
          }}
       >
          <div className={style['profile-wrapper']}>

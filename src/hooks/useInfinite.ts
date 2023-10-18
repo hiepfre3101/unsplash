@@ -11,7 +11,6 @@ const useInfinite = ({ loadMore }: Params) => {
       const body = document.body;
       body.style.maxHeight = '1330px';
       const handleLoadMore = () => {
-         console.log('scroll');
          // console.log(1, document.documentElement.scrollTop + document.documentElement.clientHeight);
          // console.log(3, body.scrollHeight);
          if (document.documentElement.scrollTop + document.documentElement.clientHeight === body.scrollHeight) {

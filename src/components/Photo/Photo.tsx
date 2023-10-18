@@ -4,6 +4,7 @@ import PlusIcon from '../../assets/icons/PlusIcon';
 import HeartIcon from '../../assets/icons/HeartIcon';
 import ArrowDown from '../../assets/icons/ArrowDown';
 import { IPhotoState, PhotoContext } from '../../context/PhotoContext';
+import UserBlock from '../CardUser/UserBlock/UserBlock';
 
 type Props = {
    photo: any;
@@ -11,14 +12,15 @@ type Props = {
 
 const Photo = ({ photo }: Props) => {
    const { triggerModal, triggerReloadModal } = useContext(PhotoContext) as IPhotoState;
-   const handleClickPhoto = (id: string) => {
+   const handleClickPhoto = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
+      if (e.target !== e.currentTarget) return;
       triggerReloadModal(id);
       triggerModal(true);
    };
 
    return (
-      <div>
-         <div className={style['photo']} key={photo.id} onClick={() => handleClickPhoto(photo.id)}>
+      <div style={{ position: 'relative' }}>
+         <div className={style['photo']} key={photo.id} onClick={(e) => handleClickPhoto(e, photo.id)}>
             <img
                loading='lazy'
                title={photo.description!}
@@ -36,14 +38,15 @@ const Photo = ({ photo }: Props) => {
                   </button>
                </div>
                <div className={style['overlay-foot']}>
-                  <div className={style['profile-wrapper']}>
+                  {/* <div className={style['profile-wrapper']}>
                      <img
                         src={photo.user.profile_image.medium}
                         alt={photo.user.name}
                         className={style['profile-img']}
                      />
                      <span className={style['profile-name']}>{photo.user.name}</span>
-                  </div>
+                  </div> */}
+                  <UserBlock user={photo.user} hasUsername={false} />
                   <button type='button' className={style['head-btn']}>
                      <ArrowDown className={style['overlay-icon']} />
                   </button>

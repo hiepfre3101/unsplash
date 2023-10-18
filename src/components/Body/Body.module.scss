@@ -91,11 +91,11 @@
 }
 .no-data {
    width: 100%;
-   left: 0;
    overflow: hidden;
    display: flex;
    justify-content: center;
    align-items: start;
-   position: absolute;
-   top: 300px;
+   & img{
+      width: 10%;
+   }
 }

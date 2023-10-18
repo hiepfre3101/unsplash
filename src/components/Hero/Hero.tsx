@@ -16,7 +16,7 @@ const Hero = ({ photo, title, descs, contentClassname, optionBtns }: Props) => {
    if (!photo) return <>Loading...</>;
    return (
       <div className={style['hero-wrap']}>
-         <img src={photo[0]?.urls.regular} alt={photo[0]?.description!} className={style['hero-banner']} />
+         <img src={photo?.urls.regular} alt={photo?.description!} className={style['hero-banner']} />
          <div className={style['overlay']}></div>
          <div className={`${style['hero-content']} ${contentClassname}`}>
             <h1 className={style['title']}>{title}</h1>
@@ -43,12 +43,12 @@ const Hero = ({ photo, title, descs, contentClassname, optionBtns }: Props) => {
          <div className={style['user-wrap']}>
             <span className={style['text-wrap']}>
                <span style={{ cursor: 'zoom-in' }} className={style['text-white']}>
-                  photo[0]
+                  photo
                </span>
                <span className={style['text-gray']}>by</span>{' '}
                <span style={{ cursor: 'pointer' }} className={style['text-white']}>
                   {' '}
-                  {photo[0]?.user.name}
+                  {photo?.user.name}
                </span>
             </span>
          </div>

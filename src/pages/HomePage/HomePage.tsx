@@ -12,7 +12,7 @@ import { PaginationParams } from 'unsplash-js/dist/types/request';
 
 const HomePage = () => {
    const { openModal } = useContext(PhotoContext) as IPhotoState;
-   const [photo, setPhoto] = useState<any>();
+   const [photo, setPhoto] = useState<any>([]);
    const location = useLocation();
    const { handleSetPage } = useListPhoto<PaginationParams>({
       api: instanceServer.photos.list,
@@ -20,13 +20,11 @@ const HomePage = () => {
       pathname: location.pathname.replace('/', '')
    });
    useEffect(() => {
-      if (photo) return;
+      if (photo.length > 0) return;
       (async () => {
          try {
             const { response } = await instanceServer.photos.getRandom({ count: 1 });
-            if (response ) {
-               setPhoto(response as any);
-            }
+            setPhoto(response);
          } catch (error) {
             console.log(error);
          }
@@ -36,7 +34,7 @@ const HomePage = () => {
    return (
       <div className={style['wrapper']}>
          <Hero
-            photo={photo!}
+            photo={photo[0]}
             title='Unsplash'
             descs={['The internet’s source for visuals.', 'Powered by creators everywhere.']}
          />

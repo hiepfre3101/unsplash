@@ -18,6 +18,7 @@ import Loading from '../Loading/Loading';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import ImageZoom from '../ImageZoom/ImageZoom';
 import { Random } from 'unsplash-js/dist/methods/photos/types';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Modal = () => {
    const {
@@ -27,11 +28,13 @@ const Modal = () => {
       idPhoto,
       handleSetPhoto,
       listPhoto,
-      triggerReloadModal
+      triggerReloadModal,
+      pushPath
    } = useContext(PhotoContext) as IPhotoState;
    const [loading, setLoading] = useState<boolean>(false);
    const [relatePhotos, setRelatePhotos] = useState<any>([]);
    const modalRef = useRef(null);
+   const navigate = useNavigate();
    useClickOutside(modalRef, () => {
       triggerModal(false);
    });
@@ -122,14 +125,22 @@ const Modal = () => {
                            <ArrowRight className={style['next-btn']} width={'40'} height={'40'} />
                         </button>
                         <div className={style['head']}>
-                           <div className={style['profile-wrapper']}>
+                           <Link
+                              to={'/user/' + singlePhoto?.user.username}
+                              onClick={() => {
+                                 triggerModal(false);
+                                 window.scrollTo(0, 0);
+                                 pushPath('/user/' + singlePhoto?.user.username);
+                              }}
+                              className={style['profile-wrapper']}
+                           >
                               <img
                                  src={singlePhoto?.user.profile_image.medium}
                                  alt={singlePhoto?.user.name}
                                  className={style['profile-img']}
                               />
                               <span className={style['profile-name']}>{singlePhoto?.user.name}</span>
-                           </div>
+                           </Link>
                            <div className={style['actions']}>
                               <button type='button' className={`${style['head-btn']}`}>
                                  <PlusIcon className={style['overlay-icon']} />
@@ -211,7 +222,15 @@ const Modal = () => {
                         <div className={style['tag-wrapper']}>
                            {singlePhoto &&
                               singlePhoto.tags.map((tag: any, index: number) => (
-                                 <button className={style['tag']} key={index}>
+                                 <button
+                                    className={style['tag']}
+                                    key={index}
+                                    onClick={() => {
+                                       pushPath('/s/photos/' + tag.title);
+                                       triggerModal(false);
+                                       navigate('/s/photos/' + tag.title);
+                                    }}
+                                 >
                                     {tag.title}
                                  </button>
                               ))}

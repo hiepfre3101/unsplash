@@ -40,14 +40,16 @@ const useListPhoto = <P>({ api, pathname, params, needFilter = true }: Params<P>
       setPage(1);
    }, [filter, params]);
    useEffect(() => {
-      // console.log(1,pathname, historyPaths[historyPaths.length - 1]);
-      // console.log(3,pathname=== historyPaths[historyPaths.length - 1]);
+      // console.log(3, pathname === historyPaths[historyPaths.length - 1], pathname);
       // console.log(2,listPhoto.length === 0 && page === 1);
-      if (openModal) return;
+      if (openModal || visible) return;
       (async () => {
          try {
             const res = await api(needFilter ? { ...params, ...filter, page } : { ...params, page });
             if (res.response?.results.length === 0) {
+               if (historyPaths[historyPaths.length - 1] === pathname) {
+                  handleSetListPhoto([]);
+               }
                setVisible(true);
                return;
             }
