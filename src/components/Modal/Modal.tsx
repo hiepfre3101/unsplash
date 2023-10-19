@@ -20,7 +20,7 @@ import ImageZoom from '../ImageZoom/ImageZoom';
 import { Random } from 'unsplash-js/dist/methods/photos/types';
 import { Link, useNavigate } from 'react-router-dom';
 import ArrDownThin from '../../assets/icons/ArrDownThin';
-import DropAntd, { ListDropdown } from '../DropAntd/DropAntd';
+import DropAntd from '../DropAntd/DropAntd';
 
 const Modal = () => {
    const {
