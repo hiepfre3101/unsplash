@@ -1,5 +1,5 @@
 @import '../../style/variables';
-
+$paddingOption: 20px;
 .wrapper {
    position: fixed;
    width: 100%;
@@ -18,7 +18,7 @@
       z-index: 6;
    }
    & .prev-btn {
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 2%;
       transform: translateX(-5%) translateY(-50%);
@@ -26,7 +26,7 @@
       z-index: 6;
    }
    & .next-btn {
-      position: absolute;
+      position: fixed;
       top: 50%;
       right: 2%;
       transform: translateX(-5%) translateY(-50%);
@@ -56,7 +56,6 @@
       padding-bottom: 20px;
    }
    & .head {
-      padding: 10px;
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -74,7 +73,7 @@
          cursor: pointer;
       }
       & .profile-img {
-         width: 30%;
+         width: 20%;
          border-radius: 50%;
          cursor: pointer;
       }
@@ -91,16 +90,54 @@
       display: flex;
       justify-content: center;
    }
+   & .dowload-wrap {
+      display: flex;
+      justify-content: start;
+      gap: 1px;
+      align-items: center;
+
+      & .dowload-btn {
+         background-color: #3cb46e;
+         color: white;
+         fill: white;
+         padding: 4px 15px;
+         border-top-left-radius: 5px;
+         border-bottom-left-radius: 5px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         font-size: 14px;
+         line-height: 1.2;
+         transition: 0.3s;
+         &:hover {
+            background-color: #37a866;
+         }
+      }
+      & .dowload-btn2 {
+         background-color: #3cb46e;
+         color: white;
+         fill: white;
+         padding: 4px 5px;
+         border-top-right-radius: 5px;
+         border-bottom-right-radius: 5px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         transition: 0.3s;
+         &:hover {
+            background-color: #37a866;
+         }
+      }
+   }
 }
 .head-btn {
    border: 1px solid $gray100;
-   padding: 2px 15px;
+   padding: 4px 15px;
    border-radius: 5px;
    display: flex;
    justify-content: center;
    align-items: center;
    gap: 2px;
-   z-index: 6;
    color: $gray400;
    transition: 0.3s;
    &:hover {
@@ -188,4 +225,28 @@
 }
 .relate {
    padding: 20px 150px;
+}
+.option {
+   font-size: 14px;
+   font-weight: 400;
+   text-wrap: nowrap;
+   cursor: pointer;
+   padding: 10px $paddingOption;
+   color: $gray400;
+   width: 100%;
+   transition: 0.3s;
+   &:hover {
+      background-color: rgba(214, 214, 214, 0.452);
+   }
+}
+.foot-dropdown {
+   padding-top: 10px;
+   border-top: 1px solid $gray100;
+   display: block;
+}
+.body-dropdown {
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+   padding-bottom: 10px;
 }

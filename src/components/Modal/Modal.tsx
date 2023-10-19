@@ -19,6 +19,8 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 import ImageZoom from '../ImageZoom/ImageZoom';
 import { Random } from 'unsplash-js/dist/methods/photos/types';
 import { Link, useNavigate } from 'react-router-dom';
+import ArrDownThin from '../../assets/icons/ArrDownThin';
+import DropAntd, { ListDropdown } from '../DropAntd/DropAntd';
 
 const Modal = () => {
    const {
@@ -33,11 +35,37 @@ const Modal = () => {
    } = useContext(PhotoContext) as IPhotoState;
    const [loading, setLoading] = useState<boolean>(false);
    const [relatePhotos, setRelatePhotos] = useState<any>([]);
-   const modalRef = useRef(null);
    const navigate = useNavigate();
+   const modalRef = useRef(null);
+   const containerRef = useRef<HTMLDivElement>(null);
+   const headRef = useRef<HTMLDivElement>(null);
    useClickOutside(modalRef, () => {
       triggerModal(false);
    });
+   useEffect(() => {
+      const handleScroll = () => {
+         if (!headRef.current || !containerRef.current) return;
+         const paddingTop = 20;
+         const imageWrapperHeight = 1000;
+         if (containerRef.current.scrollTop >= paddingTop && containerRef.current.scrollTop < imageWrapperHeight) {
+            headRef.current.style.position = 'fixed';
+            headRef.current.style.top = '0';
+            headRef.current.style.margin = 'auto';
+            headRef.current.style.width = 'calc(90% - 40px)';
+            headRef.current.style.backgroundColor = 'white';
+         } else if (containerRef.current.scrollTop >= imageWrapperHeight) {
+            headRef.current.style.position = 'static';
+         } else {
+            headRef.current.style.position = 'static';
+            headRef.current.style.margin = 'auto';
+            headRef.current.style.width = '100%';
+         }
+      };
+      containerRef.current?.addEventListener('scroll', handleScroll);
+      return () => {
+         return containerRef.current?.removeEventListener('scroll', handleScroll);
+      };
+   }, []);
    useEffect(() => {
       if (!openModal) return;
       (async () => {
@@ -112,19 +140,13 @@ const Modal = () => {
                <XIcon className={style['close-btn']} />
             </button>
 
-            <div className={style['main-wrapper']}>
+            <div className={style['main-wrapper']} ref={containerRef}>
                <div className={style['modal-block']} ref={modalRef}>
                   {loading ? (
                      <Loading screen='large' />
                   ) : (
                      <div>
-                        <button type='button' onClick={prevImage}>
-                           <ArrowLeft className={style['prev-btn']} width={'40'} height={'40'} />
-                        </button>
-                        <button type='button' onClick={nextImage}>
-                           <ArrowRight className={style['next-btn']} width={'40'} height={'40'} />
-                        </button>
-                        <div className={style['head']}>
+                        <div className={style['head']} ref={headRef}>
                            <Link
                               to={'/user/' + singlePhoto?.user.username}
                               onClick={() => {
@@ -148,15 +170,68 @@ const Modal = () => {
                               <button type='button' className={style['head-btn']}>
                                  <HeartIcon className={style['overlay-icon']} />
                               </button>
-                              <a
-                                 target='blank'
-                                 download='exp.jpg'
-                                 href={singlePhoto?.links?.download + '&amp;force=true'}
-                              >
-                                 <button type='button' className={style['head-btn']}>
-                                    <span style={{ lineHeight: '24px' }}>Download</span>
+                              <div className={style['dowload-wrap']}>
+                                 <a
+                                    target='blank'
+                                    download='exp.jpg'
+                                    href={singlePhoto?.links?.download + '&amp;force=true'}
+                                 >
+                                    <button type='button' className={style['dowload-btn']}>
+                                       <span style={{ lineHeight: '24px' }}>Download free</span>
+                                    </button>
+                                 </a>
+                                 <DropAntd
+                                    direction='bottom'
+                                    footer={
+                                       <a
+                                          href={singlePhoto?.links.download + '&amp;force=true'}
+                                          className={style['foot-dropdown']}
+                                       >
+                                          <div className={style['option']}>
+                                             <span style={{ color: 'black' }}>Original Size</span>
+                                             <span
+                                                style={{ color: '#a0a0a0' }}
+                                             >{`(${singlePhoto?.width} x ${singlePhoto?.height})`}</span>
+                                          </div>
+                                       </a>
+                                    }
+                                    renderList={() => (
+                                       <div className={style['body-dropdown']}>
+                                          <a
+                                             href={singlePhoto?.links.download + '&amp;force=true' + '&w=640'}
+                                             className={style['option']}
+                                          >
+                                             <span style={{ color: 'black' }}>Small </span>
+                                             <span style={{ color: '#a0a0a0' }}>(640 x 436)</span>
+                                          </a>
+                                          <a
+                                             href={singlePhoto?.links.download + '&amp;force=true' + '&w=1920'}
+                                             className={style['option']}
+                                          >
+                                             <span style={{ color: 'black' }}>Medium </span>
+                                             <span style={{ color: '#a0a0a0' }}>(1920 x 1080)</span>
+                                          </a>
+                                          <a
+                                             href={singlePhoto?.links.download + '&amp;force=true' + '&w=2400'}
+                                             className={style['option']}
+                                          >
+                                             <span style={{ color: 'black' }}>Large </span>
+                                             <span style={{ color: '#a0a0a0' }}>(2400 x 1600)</span>
+                                          </a>
+                                       </div>
+                                    )}
+                                 >
+                                    <button className={`${style['dowload-btn2']}`}>
+                                       <ArrDownThin />
+                                    </button>
+                                 </DropAntd>
+                                 <button type='button' onClick={prevImage}>
+                                    <ArrowLeft className={style['prev-btn']} width={'40'} height={'40'} />
                                  </button>
-                              </a>
+                                 <button type='button' onClick={nextImage}>
+                                    <ArrowRight className={style['next-btn']} width={'40'} height={'40'} />
+                                 </button>
+                              </div>
                            </div>
                         </div>
                         <div className={style['image-wrap']}>

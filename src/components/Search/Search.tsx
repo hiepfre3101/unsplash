@@ -83,6 +83,7 @@ const Search = ({ placeholder }: Props) => {
                         <Link to={`/s/photos/${query}`}>
                            <Button
                               onClick={() => {
+                                 setIsOpen(false);
                                  setValue(query);
                                  pushPath(`/s/photos/${query}`.replace('/', ''));
                               }}
@@ -97,11 +98,12 @@ const Search = ({ placeholder }: Props) => {
                </TrendBlock>
                <TrendBlock title='Trending Topics'>
                   <div className={style['tab-wrap']}>
-                     {topics.map((topic:any) => (
+                     {topics.map((topic: any) => (
                         <Button
                            onClick={() => {
-                              navigate('/' + topic.slug);
+                              setIsOpen(false);
                               pushPath(`/${topic.slug}`.replace('/', ''));
+                              navigate('/' + topic.slug);
                            }}
                            className={style['label-left']}
                            key={topic.id}
@@ -114,9 +116,10 @@ const Search = ({ placeholder }: Props) => {
                </TrendBlock>
                <TrendBlock title='Trendding Collections'>
                   <div className={style['tab-wrap']}>
-                     {collections.map((collection:any) => (
+                     {collections.map((collection: any) => (
                         <Button
                            onClick={() => {
+                              setIsOpen(false);
                               pushPath('/collections/' + collection.id);
                               navigate('/collections/' + collection.id);
                            }}

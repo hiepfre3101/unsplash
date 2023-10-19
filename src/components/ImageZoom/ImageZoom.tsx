@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import style from './ImageZoom.module.scss';
 
 type Props = {
@@ -7,6 +7,8 @@ type Props = {
 };
 
 const ImageZoom = ({ src, alt }: Props) => {
+   const [hasZoom, setHasZoom] = useState<boolean>(false);
+
    const zoomRef = useRef<HTMLDivElement>(null);
    const imageRef = useRef<HTMLImageElement>(null);
    const handleMouseMove = (e: React.MouseEvent<HTMLImageElement | HTMLDivElement>, zoom: number) => {
@@ -22,7 +24,7 @@ const ImageZoom = ({ src, alt }: Props) => {
          zoomRef.current.style.display = 'none';
          return;
       }
-      
+
       zoomRef.current.style.display = 'block';
       zoomRef.current.style.backgroundImage = `url(${src})`;
       //size cua bg kinh lup zoom len 3 lan (option)
@@ -33,8 +35,22 @@ const ImageZoom = ({ src, alt }: Props) => {
       zoomRef.current.style.left = `${e.clientX - widthLoupe}px`;
    };
    return (
-      <div className={style['wrapper']}>
+      <div className={style['wrapper']} onClick={() => setHasZoom((prev) => !prev)}>
          <img
+            style={
+               hasZoom
+                  ? {
+                       width: '100%',
+                       height: '100vh',
+                       objectFit: 'cover',
+                       position: 'fixed',
+                       top: '0',
+                       left: 0,
+                       zIndex: '1000',
+                       cursor: 'zoom-out'
+                    }
+                  : {}
+            }
             ref={imageRef}
             src={src}
             alt={alt}
