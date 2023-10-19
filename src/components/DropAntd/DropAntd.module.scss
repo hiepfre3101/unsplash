@@ -1,0 +1,67 @@
+@import '../../style/variables';
+$paddingOption: 20px;
+.parent {
+   position: relative;
+}
+.wrapper {
+   min-width: 200px;
+   background-color: white;
+   position: absolute;
+   padding: 10px 0;
+   border-radius: 5px;
+   border: 1px solid $gray100;
+   z-index: 9;
+}
+.wrapper-bottom {
+   top: 140%;
+   right:0;
+   &::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      right: 10px;
+      background-color: white;
+      padding: 6px;
+      border-bottom: 1px solid $gray100;
+      border-right: 1px solid $gray100;
+      transform: rotate(225deg);
+   }
+}
+.wrapper-top {
+   top: -10px;
+   &::before {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 13px;
+      background-color: white;
+      padding: 8px;
+      border-bottom: 1px solid $gray100;
+      border-right: 1px solid $gray100;
+      transform: rotate(45deg);
+   }
+}
+.wrapper-left {
+   right: 150%;
+   top:-20px;
+   &::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: -10px;
+      background-color: white;
+      padding: 8px;
+      border-bottom: 1px solid $gray100;
+      border-right: 1px solid $gray100;
+      transform: rotate(315deg);
+   }
+}
+.option {
+   padding: 10px $paddingOption;
+   color: $gray400;
+   width: 100%;
+   transition: 0.3s;
+   &:hover {
+      background-color: rgba(214, 214, 214, 0.452);
+   }
+}
