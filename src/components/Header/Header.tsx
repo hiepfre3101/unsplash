@@ -35,15 +35,13 @@ const Header = () => {
                <Search placeholder='Search high-resolution images' />
             </div>
             <div className={style['top-nav']}>
-               <Link to='/explore'>Explore</Link>
-               <Link to='/adv'>Advertise</Link>
-               <Link to='/plus' className={style['nav-link-plus']}>
-                  Unsplash+
-               </Link>
+               <span className={style['nav-link']}>Explore</span>
+               <span className={style['nav-link']}>Advertise</span>
+               <span className={style['nav-link-plus']}>Unsplash+</span>
             </div>
             <div className={style['shrink']}></div>
             <div className={style['top-auth']}>
-               <Link to='/'>Log in</Link>
+               <span className={style['nav-link']}>Log in</span>
                <button className={style['submit-btn']} type='button'>
                   Submit a photo
                </button>

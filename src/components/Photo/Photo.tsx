@@ -48,7 +48,9 @@ const Photo = ({ photo }: Props) => {
                   </div> */}
                   <UserBlock user={photo.user} hasUsername={false} />
                   <button type='button' className={style['head-btn']}>
-                     <ArrowDown className={style['overlay-icon']} />
+                     <a href={photo?.links?.download + '&amp;force=true'}>
+                        <ArrowDown className={style['overlay-icon']} />
+                     </a>
                   </button>
                </div>
             </div>
