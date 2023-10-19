@@ -62,13 +62,17 @@ const Search = ({ placeholder }: Props) => {
       // navigate(`/s/${location.pathname.split('/')[2]}/` + value);
    };
    return (
-      <form onSubmit={handleSubmitSearch} className={style['wrapper']} ref={wrapRef} onClick={() => setIsOpen(true)}>
+      <form onSubmit={handleSubmitSearch} className={style['wrapper']} ref={wrapRef}>
          <input
             onChange={(e) => setValue(e.target.value)}
             value={value}
             type='text'
             placeholder={placeholder}
             className={style['input']}
+            onClick={(e) => {
+               if (e.target !== e.currentTarget) return;
+               setIsOpen(true);
+            }}
          />
          {value && value.trim() !== '' && (
             <button onClick={() => setValue('')} type='button'>

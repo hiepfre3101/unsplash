@@ -65,7 +65,7 @@ const Modal = () => {
       return () => {
          return containerRef.current?.removeEventListener('scroll', handleScroll);
       };
-   }, []);
+   }, [headRef, containerRef]);
    useEffect(() => {
       if (!openModal) return;
       (async () => {
